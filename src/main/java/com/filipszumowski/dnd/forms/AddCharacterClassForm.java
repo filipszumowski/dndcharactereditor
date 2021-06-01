@@ -13,7 +13,7 @@ public class AddCharacterClassForm {
     private Integer characterId;
     @NotNull
     private Integer classId;
-    private Iterable<Characterclass> characterclassIterable;
+    private Iterable<Characterclass> characterclasses;
 
     private CharacterCreate characterCreate;
     public AddCharacterClassForm() {
@@ -21,7 +21,7 @@ public class AddCharacterClassForm {
 
     public AddCharacterClassForm(Iterable<Characterclass> characterclassIterable,
                                  CharacterCreate characterCreate) {
-        this.characterclassIterable = characterclassIterable;
+        this.characterclasses = characterclassIterable;
         this.characterCreate = characterCreate;
     }
 }

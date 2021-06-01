@@ -1,8 +1,7 @@
 package com.filipszumowski.dnd.forms;
 
 import com.filipszumowski.dnd.creator.CharacterCreate;
-import com.filipszumowski.dnd.model.Race;
-import com.filipszumowski.dnd.model.Spells;
+import com.filipszumowski.dnd.model.Spell;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -12,12 +11,12 @@ public class AddCharacterSpellForm {
     private Integer characterId;
     @NotNull
     private Integer spellId;
-    private Iterable<Spells> spellsIterable;
+    private Iterable<Spell> spells;
     private CharacterCreate characterCreate;
     public AddCharacterSpellForm(){}
 
-    public AddCharacterSpellForm(Iterable<Spells> spellsIterable, CharacterCreate characterCreate) {
-        this.spellsIterable = spellsIterable;
+    public AddCharacterSpellForm(Iterable<Spell> spells, CharacterCreate characterCreate) {
+        this.spells = spells;
         this.characterCreate = characterCreate;
     }
 }

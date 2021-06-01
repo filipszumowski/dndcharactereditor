@@ -15,12 +15,12 @@ public class AddCharacterTraitForm {
     private Integer characterId;
     @NotNull
     private Integer traitId;
-    private Iterable<Trait> traitIterable;
+    private Iterable<Trait> trait;
     private CharacterCreate characterCreate;
     public AddCharacterTraitForm(){}
 
     public AddCharacterTraitForm(Iterable<Trait> traitIterable, CharacterCreate characterCreate) {
-        this.traitIterable = traitIterable;
+        this.trait = traitIterable;
         this.characterCreate = characterCreate;
     }
 }

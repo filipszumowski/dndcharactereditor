@@ -15,12 +15,12 @@ public class AddCharacterEquipForm {
     private Integer characterId;
     @NotNull
     private Integer equId;
-    private Iterable<Equipment> equipmentIterable;
+    private Iterable<Equipment> equipment;
 private CharacterCreate characterCreate;
     public AddCharacterEquipForm(){}
 
     public AddCharacterEquipForm(Iterable<Equipment> equipmentIterable, CharacterCreate characterCreate) {
-        this.equipmentIterable = equipmentIterable;
+        this.equipment = equipmentIterable;
         this.characterCreate = characterCreate;
     }
 }

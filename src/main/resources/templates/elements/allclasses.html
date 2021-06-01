@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<div><h1>List of all classes</h1></div>
+<div>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Hit Die</th>
+        </tr>
+        <th:block th:each="characterclass: ${characterclassList}">
+            <tr>
+                <td>${characterclass.name}</td>
+                <td>${characterclass.hitDie}</td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>

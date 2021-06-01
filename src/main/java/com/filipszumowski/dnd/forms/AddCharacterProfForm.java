@@ -13,12 +13,12 @@ public class AddCharacterProfForm {
     private Integer characterId;
     @NotNull
     private Integer profId;
-    private Iterable<Proficiency> proficiencyIterable;
+    private Iterable<Proficiency> proficiency;
     private CharacterCreate characterCreate;
     public AddCharacterProfForm(){}
 
     public AddCharacterProfForm(Iterable<Proficiency> proficiencyIterable, CharacterCreate characterCreate) {
-        this.proficiencyIterable = proficiencyIterable;
+        this.proficiency = proficiencyIterable;
         this.characterCreate = characterCreate;
     }
 }

@@ -7,16 +7,16 @@
 <body>
 <h1 th:text="${title}">Character Creator</h1>
 <nav th:replace="fragments :: navigation" ></nav>
-<form method="post" th:object="${form}" action="mainview">
+<form method="post" th:object="${form}" action="character/add-spell">
     <div class="form-group">
         <label th:for="spellId">Spells</label>
-        <select name = "classId">
-            <option th:each="spell : *{spells}"
-                    th:text="${spells.name}"
-                    th:value="${spells.spellId}"></option>
+        <select name = "spellId">
+            <option th:each="spell: *{spells}"
+                    th:text="${spell.name}"
+                    th:value="${spell.spellId}"></option>
         </select>
     </div>
-    <input type="hidden" name="equId" th:value="*{spell.equId}"/>
+    <input type="hidden" name="characterId" th:value="*{characterCreate.characterId}"/>
     <input type="submit" value="Add Spell" />
 
 </form>

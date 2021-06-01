@@ -13,12 +13,12 @@ public class AddCharacterRaceForm {
     private Integer characterId;
     @NotNull
     private Integer raceId;
-    private Iterable<Race> raceIterable;
+    private Iterable<Race> race;
     private CharacterCreate characterCreate;
     public AddCharacterRaceForm(){}
 
     public AddCharacterRaceForm(Iterable<Race> raceIterable, CharacterCreate characterCreate) {
-        this.raceIterable = raceIterable;
+        this.race = raceIterable;
         this.characterCreate = characterCreate;
     }
 }

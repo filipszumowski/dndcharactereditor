@@ -1,7 +1,6 @@
 package com.filipszumowski.dnd.creator;
 
 import com.filipszumowski.dnd.model.*;
-import com.filipszumowski.dnd.notentity.Skill;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -37,7 +36,7 @@ public class CharacterCreate {
     @ManyToMany
     private List<Characterclass> characterClass;
     @ManyToMany
-    private List<Spells> spells;
+    private List<Spell> spells;
     @ManyToMany
     private List<Proficiency> proficiencies;
     @ManyToMany
@@ -53,7 +52,7 @@ public class CharacterCreate {
 
     public void addRace(Race race) {race1.add(race);}
 
-    public void addSpells(Spells spell) {spells.add(spell);}
+    public void addSpells(Spell spell) {spells.add(spell);}
 
     public void addProficiencies(Proficiency proficiency) {proficiencies.add(proficiency);}
 
@@ -61,7 +60,7 @@ public class CharacterCreate {
 
     public void addTrait(Trait trait) {traits.add(trait);}
 
-    public List<Spells> getSpells() {return spells;}
+    public List<Spell> getSpells() {return spells;}
 
     public List<Proficiency> getProficiencies() {return proficiencies;}
 
@@ -79,7 +78,7 @@ public class CharacterCreate {
                            @Min(10) int intScore, @Min(10) int wisScore,
                            @Min(10) int charScore, List<Race> race,
                            List<Characterclass> characterClass,
-                           List<Spells> spells, List<Proficiency> proficiencies,
+                           List<Spell> spells, List<Proficiency> proficiencies,
                            List<Equipment> equipment, List<Trait> traits) {
         this.characterId = characterId;
         this.name = name;

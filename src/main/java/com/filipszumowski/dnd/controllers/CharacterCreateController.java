@@ -7,14 +7,12 @@ import com.filipszumowski.dnd.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RequestMapping("/character")
@@ -170,9 +168,9 @@ public class CharacterCreateController {
             model.addAttribute("form", form);
             return "character/add-race";
         }
-        Characterclass charclass = characterclassRepository.findById(form.getRaceId()).get();
+        Race race = raceRepository.findById(form.getRaceId()).get();
         CharacterCreate character = characterCreateRepository.findById(form.getCharacterId()).get();
-        character.addClass(charclass);
+        character.addRace(race);
         characterCreateRepository.save(character);
         return "redirect:character/mainview" + character.getCharacterId();
 
@@ -199,7 +197,7 @@ public class CharacterCreateController {
             model.addAttribute("form", form);
             return "character/add-spell";
         }
-        Spells spell= spellsRepository.findById(form.getSpellId()).get();
+        Spell spell= spellsRepository.findById(form.getSpellId()).get();
         CharacterCreate character = characterCreateRepository.findById(form.getCharacterId()).get();
         character.addSpells(spell);
         characterCreateRepository.save(character);
