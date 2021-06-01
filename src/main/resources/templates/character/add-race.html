@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<h1 th:text="${title}">Character Creator</h1>
+<nav th:replace="fragments :: navigation" ></nav>
+<form method="post" th:object="${form}" action="mainview">
+    <div class="form-group">
+        <label th:for="raceId">Race</label>
+        <select name = "raceId">
+            <option th:each="race : *{races}"
+                    th:text="${race.name}"
+                    th:value="${race.raceId}"></option>
+        </select>
+    </div>
+    <input type="hidden" name="raceId" th:value="*{race.raceId}"/>
+    <input type="submit" value="Add Race" />
+
+</form>
+
+</body>
+</html>

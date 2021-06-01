@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Character stats</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Add Skills</h1>
+<form th:object="${charactercreate}" method="post">
+    <div class="form-row">
+    <p>Strength: <input type="number" th:field="*{strScore}" /></p>
+    <p>Dexterity: <input type="number" th:field="*{dexScore}" /></p>
+        <p>Constitution: <input type="number" th:field="*{constScore}" /></p>
+        <p>Intelligence: <input type="number" th:field="*{intScore}" /></p>
+        <p>Wisdom: <input type="number" th:field="*{wisScore}" /></p>
+        <p>Charisma: <input type="number" th:field="*{charScore}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</div>
+</form>
+</body>
+</html>

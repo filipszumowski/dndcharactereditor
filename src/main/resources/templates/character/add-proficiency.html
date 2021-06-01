@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<h1 th:text="${title}">Character Creator</h1>
+<nav th:replace="fragments :: navigation" ></nav>
+<form method="post" th:object="${form}" action="add-proficiency">
+    <div class="form-group">
+        <label th:for="profId">Class</label>
+        <select name = "profId">
+            <option th:each="proficiency : *{proficiencies}"
+                    th:text="${proficiency.name}"
+                    th:value="${proficiency.profId}"></option>
+        </select>
+    </div>
+    <input type="hidden" name="profId" th:value="*{characterclass.profId}"/>
+    <input type="submit" value="Add Proficiency" />
+
+</form>
+
+</body>
+</html>

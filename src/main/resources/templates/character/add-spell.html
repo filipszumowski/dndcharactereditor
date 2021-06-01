@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<h1 th:text="${title}">Character Creator</h1>
+<nav th:replace="fragments :: navigation" ></nav>
+<form method="post" th:object="${form}" action="mainview">
+    <div class="form-group">
+        <label th:for="spellId">Spells</label>
+        <select name = "classId">
+            <option th:each="spell : *{spells}"
+                    th:text="${spells.name}"
+                    th:value="${spells.spellId}"></option>
+        </select>
+    </div>
+    <input type="hidden" name="equId" th:value="*{spell.equId}"/>
+    <input type="submit" value="Add Spell" />
+
+</form>
+
+</body>
+</html>
