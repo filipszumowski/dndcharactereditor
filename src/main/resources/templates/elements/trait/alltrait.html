@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<div th:align="center"><h1>List of all traits</h1></div>
+
+<div th:align="center">
+    <p><a th:href="@{/elements/trait/new_trait}">Create new Trait</a></p>
+    <p><a th:href="@{/}" th:align="center">Back to Main Menu</a></p>
+    <br/><br/>
+<table th:border="2" cellpadding="10">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="trait : ${traitList}">
+        <td th:text="${trait.traitId}">ID</td>
+        <td th:text="${trait.name}">Name</td>
+        <td th:text="${trait.description}">Description</td>
+
+        <td><a th:href="@{'/editTrait/'+ ${trait.traitId}}">Edit</a>
+        &nbsp;
+        <a th:href="@{'/deleteTrait/'+ ${trait.traitId}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

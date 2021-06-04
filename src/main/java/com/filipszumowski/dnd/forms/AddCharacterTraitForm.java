@@ -1,12 +1,10 @@
 package com.filipszumowski.dnd.forms;
 
-import com.filipszumowski.dnd.creator.CharacterCreate;
-import com.filipszumowski.dnd.model.Race;
+import com.filipszumowski.dnd.model.CharacterCreate;
 import com.filipszumowski.dnd.model.Trait;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Data
 public class AddCharacterTraitForm {

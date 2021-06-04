@@ -1,8 +1,6 @@
 package com.filipszumowski.dnd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.filipszumowski.dnd.common.Choice;
-import com.filipszumowski.dnd.creator.CharacterCreate;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,4 +27,9 @@ public class Trait {
     @ManyToMany(mappedBy = "traits")
     private List<CharacterCreate> charactercreates;
     public Trait (){};
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

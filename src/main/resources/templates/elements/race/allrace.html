@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<div th:align="center"><h1>List of all races</h1></div>
+
+<div th:align="center">
+    <p><a th:href="@{/elements/race/new_race}">Create new Race</a></p>
+    <p><a th:href="@{/}" th:align="center">Back to Main Menu</a></p>
+
+<br/><br/>
+<table th:border="2" cellpadding="10">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Speed</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="race : ${raceList}">
+        <td th:text="${race.raceId}">ID</td>
+        <td th:text="${race.name}">Name</td>
+        <td th:text="${race.speed}">Speed</td>
+
+        <td><a th:href="@{'/editRace/'+ ${race.raceId}}">Edit</a>
+        &nbsp;
+        <a th:href="@{'/deleteRace/'+ ${race.raceId}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

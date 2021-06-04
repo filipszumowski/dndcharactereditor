@@ -1,12 +1,14 @@
-package com.filipszumowski.dnd.creator;
+package com.filipszumowski.dnd.model;
 
 import com.filipszumowski.dnd.model.*;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Entity
 @Data
@@ -17,56 +19,58 @@ public class CharacterCreate {
 
     private Integer characterId;
     private String name;
-    @Min(10)
+
     private int strScore;
-    @Min(10)
+
     private int dexScore;
-    @Min(10)
+
     private int constScore;
-    @Min(10)
+
     private int intScore;
-    @Min(10)
+
     private int wisScore;
-    @Min(10)
+
     private int charScore;
     /*@ManyToOne
     private Player player;*/
+    @ManyToOne
+    private Race race;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(name = "character_class", joinColumns = @JoinColumn(name = "character_id"),
+            inverseJoinColumns = @JoinColumn(name = "class_id"))
+    private Set<Characterclass> characterClass;
     @ManyToMany
-    private List<Race> race1;
+    private Set<Spell> spells;
     @ManyToMany
-    private List<Characterclass> characterClass;
+    private Set<Proficiency> proficiencies;
     @ManyToMany
-    private List<Spell> spells;
+    private Set<Equipment> equipment;
     @ManyToMany
-    private List<Proficiency> proficiencies;
-    @ManyToMany
-    private List<Equipment> equipment;
-    @ManyToMany
-    private List <Trait> traits;
+    private Set <Trait> traits;
     /*@ManyToMany
     private List <Skill> skills;*/
 
     public CharacterCreate () {}
 
-    public void addClass(Characterclass characterclass) {characterClass.add(characterclass);}
+//    public void addClass(Characterclass characterclass) {characterClass.add(characterclass);}
+//
+//    //public void addRace(Race race) {race1.add(race);}
+//
+//    public void addSpells(Spell spell) {spells.add(spell);}
+//
+//    public void addProficiencies(Proficiency proficiency) {proficiencies.add(proficiency);}
+//
+//    public void ment(Equipment item) {equipment.add(item);}
+//
+//    public void addTrait(Trait trait) {traits.add(trait);}
 
-    public void addRace(Race race) {race1.add(race);}
+    public Set<Spell> getSpells() {return spells;}
 
-    public void addSpells(Spell spell) {spells.add(spell);}
+    public Set<Proficiency> getProficiencies() {return proficiencies;}
 
-    public void addProficiencies(Proficiency proficiency) {proficiencies.add(proficiency);}
+    public Set<Equipment> getEquipment() {return equipment;}
 
-    public void addEquipment(Equipment item) {equipment.add(item);}
-
-    public void addTrait(Trait trait) {traits.add(trait);}
-
-    public List<Spell> getSpells() {return spells;}
-
-    public List<Proficiency> getProficiencies() {return proficiencies;}
-
-    public List<Equipment> getEquipment() {return equipment;}
-
-    public List<Trait> getTraits() {return traits;}
+    public Set<Trait> getTraits() {return traits;}
 
     public Integer getCharacterId() {
         return characterId;
@@ -76,10 +80,10 @@ public class CharacterCreate {
                            String name, @Min(10) int strScore,
                            @Min(10) int dexScore, @Min(10) int constScore,
                            @Min(10) int intScore, @Min(10) int wisScore,
-                           @Min(10) int charScore, List<Race> race,
-                           List<Characterclass> characterClass,
-                           List<Spell> spells, List<Proficiency> proficiencies,
-                           List<Equipment> equipment, List<Trait> traits) {
+                           @Min(10) int charScore, Race race,
+                           Set<Characterclass> characterClass,
+                           Set<Spell> spells, Set<Proficiency> proficiencies,
+                           Set<Equipment> equipment, Set<Trait> traits) {
         this.characterId = characterId;
         this.name = name;
         this.strScore = strScore;
@@ -88,7 +92,7 @@ public class CharacterCreate {
         this.intScore = intScore;
         this.wisScore = wisScore;
         this.charScore = charScore;
-        this.race1 = race;
+        this.race = race;
         this.characterClass = characterClass;
         this.spells = spells;
         this.proficiencies = proficiencies;
@@ -97,8 +101,8 @@ public class CharacterCreate {
 
     }
 
-    public Optional<String> getName() {
-        return Optional.ofNullable(name);
+    public String getName() {
+        return name;
     }
 
     public int getStrScore() {
@@ -125,11 +129,11 @@ public class CharacterCreate {
         return charScore;
     }
 
-    public List<Race> getRace() {
-        return race1;
+    public Race getRace() {
+        return race;
     }
 
-    public List<Characterclass> getCharacterClass() {
+    public Set<Characterclass> getCharacterClass() {
         return characterClass;
     }
 

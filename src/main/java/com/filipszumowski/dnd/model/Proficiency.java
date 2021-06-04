@@ -1,7 +1,6 @@
 package com.filipszumowski.dnd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.filipszumowski.dnd.creator.CharacterCreate;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,11 +18,13 @@ public class Proficiency {
     private String indexName;
     private String type;
     private String name;
-   @ManyToMany
+    private String description;
+   /*@ManyToMany
     private List <Characterclass> aClasses;
     @ManyToMany
     private List <Race> races;
-    private String url;
+    private String url;*/
+
     @ManyToMany(mappedBy = "proficiencies")
     private List<CharacterCreate> charactercreates;
 
@@ -32,5 +33,8 @@ public class Proficiency {
     private List <EquipmentCat> references;
 */
 
-
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

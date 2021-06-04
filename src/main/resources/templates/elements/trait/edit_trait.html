@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<div th:align="center">
+    <h1>Edit Trait</h1>
+    <br/>
+    <form action="#" th:action="@{/saveTrait}" th:object="${trait}" method="post">
+        <table>
+            <tr>
+                <td>Id</td>
+                <td><label>
+                    <input type="text" th:field="*{traitId}" readonly = readonly>
+                </label></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><label>
+                    <input type="text" th:field="*{name}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><label>
+                    <input type="text" th:field="*{description}">
+                </label></td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><button type="submit">Edit</button> </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

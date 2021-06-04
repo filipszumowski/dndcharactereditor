@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<div th:align="center"><h1>List of all equipment</h1></div>
+<div th:align="center">
+    <p><a th:href="@{/elements/equipment/new_equipment}">Create new Equipment</a></p>
+    <p><a th:href="@{/}" th:align="center">Back to Main Menu</a></p>
+<br/><br/>
+<table th:border="2" cellpadding="10" th:align="center">
+    <thead>
+    <tr>
+        <th>Class ID</th>
+        <th>Name</th>
+        <th>Weapon Category</th>
+        <th>Weapon Range</th>
+        <th>Damage</th>
+        <th>Weight</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="equip : ${equipmentList}">
+        <td th:text="${equip.equId}">Class ID</td>
+        <td th:text="${equip.name}">Name</td>
+        <td th:text="${equip.weaponcategory}">Weapon Category</td>
+        <td th:text="${equip.weaponrange}">Weapon Range</td>
+        <td th:text="${equip.damage}">Damage</td>
+        <td th:text="${equip.weight}">Weight</td>
+        <td><a th:href="@{'/editEquip/'+ ${equip.equId}}">Edit</a>
+        &nbsp;
+        <a th:href="@{'/deleteEquip/'+ ${equip.equId}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+    </div>
+</body>
+</html>

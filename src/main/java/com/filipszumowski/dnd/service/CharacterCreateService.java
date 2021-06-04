@@ -1,43 +1,35 @@
 package com.filipszumowski.dnd.service;
 
-import com.filipszumowski.dnd.creator.CharacterCreate;
-import com.filipszumowski.dnd.model.Characterclass;
+import com.filipszumowski.dnd.model.CharacterCreate;
 import com.filipszumowski.dnd.repository.*;
-import org.apache.tomcat.jni.Address;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.Subject;
-import java.util.ArrayList;
 import java.util.List;
 
-//@Service
+@Service
 public class CharacterCreateService {
 
-   /* @Autowired
-    CharacterclassRepository characterclassRepository;
+    final CharacterCreateRepository characterCreateRepository;
 
-    @Autowired
-    EquipmentRepository equipmentRepository;
+    public CharacterCreateService(CharacterCreateRepository characterCreateRepository) {
+        this.characterCreateRepository = characterCreateRepository;
+    }
 
-    @Autowired
-    ProficiencyRepository proficiencyRepository;
+    public List<CharacterCreate> listAllCharacters() {
+        return characterCreateRepository.findAll();
+    }
 
-    @Autowired
-    RaceRepository raceRepository;
+    public void saveCharacter(CharacterCreate characterCreate) {
+        characterCreateRepository.save(characterCreate);
+    }
 
-    @Autowired
-    SpellsRepository spellsRepository;
+    public CharacterCreate getCharacter(Integer id) {
+        return characterCreateRepository.getById(id);
+    }
 
-    @Autowired
-    TraitRepository traitRepository;*/
-
-
-
-
+    public void deleteCharacter(Integer id) {
+        characterCreateRepository.deleteById(id);
+    }
 
 
 

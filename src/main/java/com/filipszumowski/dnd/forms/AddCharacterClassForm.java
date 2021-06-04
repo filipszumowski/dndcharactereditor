@@ -1,6 +1,6 @@
 package com.filipszumowski.dnd.forms;
 
-import com.filipszumowski.dnd.creator.CharacterCreate;
+import com.filipszumowski.dnd.model.CharacterCreate;
 import com.filipszumowski.dnd.model.Characterclass;
 import lombok.Data;
 

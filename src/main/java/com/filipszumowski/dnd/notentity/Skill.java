@@ -1,13 +1,7 @@
 package com.filipszumowski.dnd.notentity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.filipszumowski.dnd.common.APIReference;
-import com.filipszumowski.dnd.common.AbilityScore;
-import com.filipszumowski.dnd.creator.CharacterCreate;
-import lombok.Data;
+import com.filipszumowski.dnd.model.CharacterCreate;
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /*@Entity

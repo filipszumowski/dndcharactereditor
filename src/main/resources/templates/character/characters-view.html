@@ -5,14 +5,53 @@
     <title>Character Creator</title>
 </head>
 <body>
-<h1 th:text="${title}">Character Creator</h1>
-<nav th:replace="fragments :: navigation" ></nav>
-<ul>
-    <li th:each="charactercreate : ${charactercreates}">
-        <a th:href="'/views/character/' + ${charactercreate.id}" th:text="${charactercreate.name}"></a>
-    </li>
-</ul>
-<p><a th:href="/charactercreate/add">Add Character</a> </p>
+
+
+<div th:align="center"><h1>List of all Characters</h1></div>
+<br/><br/>
+<table th:border="2" th:cellpadding="10" th:align="center">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Strength</th>
+        <th>Dexterity</th>
+        <th>Constitution</th>
+        <th>Intelligence</th>
+        <th>Wisdom</th>
+        <th>Charisma</th>
+        <th>Race</th>
+        <th>Character Class</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="char : ${characterCreateList}">
+        <td th:text="${char.characterId}"></td>
+        <td th:text="${char.name}"></td>
+        <td th:text="${char.strScore}"></td>
+        <td th:text="${char.dexScore}"></td>
+        <td th:text="${char.constScore}"></td>
+        <td th:text="${char.intScore}"></td>
+        <td th:text="${char.wisScore}"></td>
+        <td th:text="${char.charScore}"></td>
+        <td th:text="${char.race.name}"></td>
+        <td th:text="${char.characterClass}"></td>
+        <td><a th:href="@{'/character/edit/'+ ${char.characterId}}">Edit</a>
+            &nbsp;
+            <a th:href="@{'/character/delete/'+ ${char.characterId}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<!--<ul>-->
+<!--    <li th:each="charactercreate : ${charactercreates}">-->
+<!--        <a th:href="'/views/character/' + ${charactercreate.id}" th:text="${charactercreate.name}"></a>-->
+<!--    </li>-->
+<!--</ul>-->
+<p th:align="center"><a th:href="@{/character/new}">Add Character</a> </p>
+<p th:align="center"><a th:href="@{/}" th:align="center">Back to Main Menu</a></p>
 
 </body>
 </html>

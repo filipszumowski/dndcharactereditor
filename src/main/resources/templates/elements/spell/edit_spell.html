@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<div th:align="center">
+    <h1>Edit Spell</h1>
+    <br/>
+    <form action="#" th:action="@{/saveSpell}" th:object="${spell}" method="post">
+        <table>
+            <tr>
+                <td>Id</td>
+                <td><label>
+                    <input type="text" th:field="*{spellId}" readonly = readonly>
+                </label></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><label>
+                    <input type="text" th:field="*{name}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><label>
+                    <input type="text" th:field="*{description}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Level</td>
+                <td><label>
+                    <input type="number" th:field="*{level}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Range</td>
+                <td><label>
+                    <input type="text" th:field="*{spellRange}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Duration</td>
+                <td><label>
+                    <input type="text" th:field="*{duration}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Concentration</td>
+                <td><label>
+                    <input type="text" th:field="*{concentration}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Casting Time</td>
+                <td><label>
+                    <input type="text" th:field="*{casting_time}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Attack Type</td>
+                <td><label>
+                    <input type="text" th:field="*{attackType}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Damage</td>
+                <td><label>
+                    <input type="text" th:field="*{damage}">
+                </label></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit">Edit</button> </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

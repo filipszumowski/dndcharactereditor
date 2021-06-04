@@ -1,5 +1,6 @@
 package com.filipszumowski.dnd.creator;
 
+import com.filipszumowski.dnd.model.CharacterCreate;
 import lombok.Data;
 
 import javax.persistence.*;

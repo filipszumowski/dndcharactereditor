@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<div th:align="center">
+    <div th:if="${characterCreate.characterId==null}"><h1>Create new Character</h1></div>
+    <div th:unless="${characterCreate.characterId==null}"><h1>Edit Character</h1></div>
+    <br/>
+    <form action="#" th:action="@{/character/save}" th:object="${characterCreate}" method="post">
+        <input type="hidden" th:field="*{characterId}" th:value="${characterCreate.characterId}"/>
+        <table th:align="center">
+            <tr>
+                <td>Name</td>
+                <td><label>
+                    <input type="text" th:field="*{name}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Strength</td>
+                <td><label>
+                    <input type="number" th:field="*{strScore}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Dexterity</td>
+                <td><label>
+                    <input type="number" th:field="*{dexScore}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Constitution</td>
+                <td><label>
+                    <input type="number" th:field="*{constScore}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Intelligence</td>
+                <td><label>
+                    <input type="number" th:field="*{intScore}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Wisdom</td>
+                <td><label>
+                    <input type="number" th:field="*{wisScore}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Charisma</td>
+                <td><label>
+                    <input type="number" th:field="*{charScore}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Race</td>
+                <td><label>
+                    <select th:field="*{race}" class="form-control" required>
+                        <th:block th:each="race : ${listRace}">
+                            <option th:text="${race.name}" th:value="${race.raceId}"></option>
+                        </th:block>
+
+                    </select>
+                </label></td>
+            </tr>
+            <tr>
+                <td>Class</td>
+                <td>
+                    <label></label>
+                    <th:block th:each="characterClass : ${listClass}">
+                        <div>
+                            <input type="checkbox"
+                                   th:field="*{characterClass}"
+                                   th:text="${characterClass.name}"
+                                   th:value="${characterClass.classId}"
+                                   multiple="multiple" required/>
+                        </div>
+                    </th:block>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

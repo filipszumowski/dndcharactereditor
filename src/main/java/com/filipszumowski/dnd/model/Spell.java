@@ -1,7 +1,6 @@
 package com.filipszumowski.dnd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.filipszumowski.dnd.creator.CharacterCreate;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,11 +15,11 @@ public class Spell {
     private Integer spellId;
     private String name;
     private String indexName;
-    private String description; //List
-    private String higher_level; //List
+    private String description;
+    //private Integer higher_level; //List
     private String spellRange;
     private String duration;
-    private boolean concentration;
+    private String concentration;
     private String casting_time;
     private Integer level;
     private String attackType;
@@ -33,4 +32,9 @@ public class Spell {
     @ManyToMany(mappedBy = "spells")
     private List<CharacterCreate> charactercreates;
     public Spell(){};
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

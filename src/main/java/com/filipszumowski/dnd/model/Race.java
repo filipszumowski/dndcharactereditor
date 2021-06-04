@@ -1,8 +1,6 @@
 package com.filipszumowski.dnd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.filipszumowski.dnd.common.AbilityBonus;
-import com.filipszumowski.dnd.creator.CharacterCreate;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,20 +13,20 @@ public class Race {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int raceId;
+    private Integer raceId;
     private String indexName;
     private String name;
     private Integer speed;
-    @ManyToMany(mappedBy = "race1")
+    @OneToMany
     private List<CharacterCreate> charactercreates;
     /*@ManyToMany
     private List <AbilityBonus> ability_bonuses;
    */
-    @ManyToMany
+    /*@ManyToMany
     private List <Proficiency> starting_proficiencies;
     @ManyToMany
     private List<Trait> traits;
-    private String url;
+    */private String url;
 
     public Race (){};
 }

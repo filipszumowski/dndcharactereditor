@@ -1,7 +1,6 @@
 package com.filipszumowski.dnd.forms;
 
-import com.filipszumowski.dnd.creator.CharacterCreate;
-import com.filipszumowski.dnd.model.Proficiency;
+import com.filipszumowski.dnd.model.CharacterCreate;
 import com.filipszumowski.dnd.model.Race;
 import lombok.Data;
 

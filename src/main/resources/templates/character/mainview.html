@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<!--<head th:replace="fragments :: head"></head>-->
 
 <body class="container">
 
 <h1 th:text="${title}">Default Title</h1>
 
-<nav th:replace="fragments :: navigation"></nav>
+<!--<nav th:replace="fragments :: navigation"></nav>-->
 
 
 
@@ -23,16 +23,16 @@
         <th>Traits</th>
     </tr>
 
-    <tr th:each="charactercreate : ${charactercreates}">
-        <td th:text="${charactercreates.name}"></td>
-        <td th:text="${charactercreates.race1}"></td>
-        <td th:text="${charactercreates.characterClass}"></td>
-        <td th:text="${charactercreates.spells}"></td>
-        <td th:text="${charactercreates.proficiencies}"></td>
-        <td th:text="${charactercreates.skills}"></td>
-        <td th:text="${charactercreates.equipment}"></td>
-        <td th:text="${charactercreates.traits}"></td>
-    </tr>
+<!--    <tr th:each="charactercreate : ${charactercreates}">-->
+<!--        <td th:text="${charactercreates.name}"></td>-->
+<!--        <td th:text="${charactercreates.race1}"></td>-->
+<!--        <td th:text="${charactercreates.characterClass}"></td>-->
+<!--        <td th:text="${charactercreates.spells}"></td>-->
+<!--        <td th:text="${charactercreates.proficiencies}"></td>-->
+<!--        <td th:text="${charactercreates.skills}"></td>-->
+<!--        <td th:text="${charactercreates.equipment}"></td>-->
+<!--        <td th:text="${charactercreates.traits}"></td>-->
+<!--    </tr>-->
 
 </table>
 <table class="table">
@@ -46,14 +46,14 @@
         <th>Charisma</th>
     </tr>
 
-    <tr th:each="charactercreate : ${charactercreates}">
-        <td th:text="${charactercreates.strScore}"></td>
-        <td th:text="${charactercreates.dexScore}"></td>
-        <td th:text="${charactercreates.constScore}"></td>
-        <td th:text="${charactercreates.intScore}"></td>
-        <td th:text="${charactercreates.wisScore}"></td>
-        <td th:text="${charactercreates.charScore}"></td>
-    </tr>
+<!--    <tr th:each="charactercreate : ${charactercreates}">-->
+<!--        <td th:text="${charactercreates.strScore}"></td>-->
+<!--        <td th:text="${charactercreates.dexScore}"></td>-->
+<!--        <td th:text="${charactercreates.constScore}"></td>-->
+<!--        <td th:text="${charactercreates.intScore}"></td>-->
+<!--        <td th:text="${charactercreates.wisScore}"></td>-->
+<!--        <td th:text="${charactercreates.charScore}"></td>-->
+<!--    </tr>-->
 </table>
 <p><a th:href="@{/character/add-class}">Add Class</a> </p>
 <p><a th:href="@{/character/add-race}">Add Race</a> </p>

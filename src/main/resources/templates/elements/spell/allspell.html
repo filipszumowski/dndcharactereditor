@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<div th:align="center"><h1>List of all spells</h1></div>
+
+<div th:align="center">
+    <p><a th:href="@{/elements/spell/new_spell}">Create new Spell</a></p>
+    <p><a th:href="@{/}" th:align="center">Back to Main Menu</a></p>
+    <br/><br/>
+<table th:border="2" cellpadding="10">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Level</th>
+        <th>Range</th>
+        <th>Duration</th>
+        <th>Concentration</th>
+        <th>Casting Time</th>
+        <th>Attack Type</th>
+        <th>Damage</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="spell : ${spellList}">
+        <td th:text="${spell.spellId}">ID</td>
+        <td th:text="${spell.name}">Name</td>
+        <td th:text="${spell.description}">Description</td>
+        <td th:text="${spell.level}">Level</td>
+        <td th:text="${spell.spellRange}">Range</td>
+        <td th:text="${spell.duration}">Duration</td>
+        <td th:text="${spell.concentration}">Concentration</td>
+        <td th:text="${spell.casting_time}">Casting Time</td>
+        <td th:text="${spell.attackType}">Attack Type</td>
+        <td th:text="${spell.damage}">Damage</td>
+        <td><a th:href="@{'/editSpell/'+ ${spell.spellId}}">Edit</a>
+        &nbsp;
+        <a th:href="@{'/deleteSpell/'+ ${spell.spellId}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

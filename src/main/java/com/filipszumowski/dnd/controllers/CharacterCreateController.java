@@ -1,40 +1,120 @@
 package com.filipszumowski.dnd.controllers;
 
-import com.filipszumowski.dnd.creator.CharacterCreate;
+import com.filipszumowski.dnd.model.CharacterCreate;
 import com.filipszumowski.dnd.forms.*;
 import com.filipszumowski.dnd.model.*;
 import com.filipszumowski.dnd.repository.*;
+import com.filipszumowski.dnd.service.CharClassService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Set;
 
-@RequiredArgsConstructor
-@RequestMapping("/character")
+
+//@RequestMapping("/character")
 @Controller
-@RestController
-@EnableWebMvc
+
 public class CharacterCreateController {
 
-    @Autowired
-    CharacterCreateRepository characterCreateRepository;
-    @Autowired
-    CharacterclassRepository characterclassRepository;
-    @Autowired
-    EquipmentRepository equipmentRepository;
-    @Autowired
-    ProficiencyRepository proficiencyRepository;
-    @Autowired
-    RaceRepository raceRepository;
-    @Autowired
-    SpellsRepository spellsRepository;
-    @Autowired
-    TraitRepository traitRepository;
+    final CharacterCreateRepository characterCreateRepository;
+
+    final CharacterclassRepository characterclassRepository;
+
+    final EquipmentRepository equipmentRepository;
+
+    final ProficiencyRepository proficiencyRepository;
+
+    final RaceRepository raceRepository;
+
+    final SpellsRepository spellsRepository;
+
+    final TraitRepository traitRepository;
+
+    final CharClassService charClassService;
+
+    public CharacterCreateController(CharacterCreateRepository characterCreateRepository,
+                                     CharacterclassRepository characterclassRepository,
+                                     EquipmentRepository equipmentRepository,
+                                     ProficiencyRepository proficiencyRepository,
+                                     RaceRepository raceRepository,
+                                     SpellsRepository spellsRepository,
+                                     TraitRepository traitRepository,
+                                     CharClassService charClassService) {
+        this.characterCreateRepository = characterCreateRepository;
+        this.characterclassRepository = characterclassRepository;
+        this.equipmentRepository = equipmentRepository;
+        this.proficiencyRepository = proficiencyRepository;
+        this.raceRepository = raceRepository;
+        this.spellsRepository = spellsRepository;
+        this.traitRepository = traitRepository;
+        this.charClassService = charClassService;
+    }
+
+    @GetMapping("/character/new")
+    public String showNewCharacterForm(Model model) {
+        List<Race> listRace = raceRepository.findAll();
+        List<Characterclass> listClass = characterclassRepository.findAll();
+        List<Spell> listSpell = spellsRepository.findAll();
+        List<Proficiency> listProf = proficiencyRepository.findAll();
+        List<Equipment> listEquip = equipmentRepository.findAll();
+        List<Trait> listTrait = traitRepository.findAll();
+        model.addAttribute("characterCreate", new CharacterCreate());
+        model.addAttribute("listRace", listRace);
+        model.addAttribute("listClass", listClass);
+        model.addAttribute("listSpell", listSpell);
+        model.addAttribute("listProf", listProf);
+        model.addAttribute("listEquip", listEquip);
+        model.addAttribute("listTrait", listTrait);
+        return "character/characterCreateForm";
+    }
+
+    @PostMapping("/character/save")
+    public String saveCharacter(CharacterCreate characterCreate) {
+        characterCreateRepository.save(characterCreate);
+        return "redirect:characters-view";
+    }
+
+    @GetMapping("/character/characters-view")
+    public String viewAllCharacters(Model model) {
+        List<CharacterCreate> characterCreateList = characterCreateRepository.findAll();
+        /*Set<String> characterclassSet = charClassService.getClassName(characterId);
+model.addAttribute("characterclassSet", characterclassSet);*/
+        model.addAttribute("characterCreateList", characterCreateList);
+        return "character/characters-view";
+    }
+
+    @GetMapping("character/edit/{characterId}")
+    public String showEditCharForm(@PathVariable("characterId") Integer characterId, Model model) {
+        CharacterCreate characterCreate = characterCreateRepository.findById(characterId).get();
+        model.addAttribute("characterCreate", characterCreate);
+        List<Race> listRace = raceRepository.findAll();
+        model.addAttribute("listRace", listRace);
+        List<Characterclass> listClass = characterclassRepository.findAll();
+        model.addAttribute("listClass", listClass);
+
+        return "character/characterCreateForm";
+    }
+
+    @GetMapping("character/delete/{characterId}")
+    public String showDeleteCharForm(@PathVariable("characterId") Integer characterId, Model model) {
+        characterCreateRepository.deleteById(characterId);
+        return "redirect:/character/characters-view";
+    }
+
+
+
+
+
+
+
+
+
+
 
     /*@RequestMapping("")
     public String allClasses(Model model) {
@@ -43,45 +123,45 @@ public class CharacterCreateController {
         return "createcharacter/allclasses";
     }*/
 
-////////////// Create character GET & Post
-    @RequestMapping(value = "create", method = RequestMethod.GET)
-    public String create(Model model) {
-        model.addAttribute("title", "Create Character");
-        model.addAttribute(new CharacterCreate());
-        return "character/create";
-    }
-
-    @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String create(Model model, @ModelAttribute @Valid CharacterCreate charactercreate, Errors errors) {
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Create Character");
-            return "character/create";
-        }
-        characterCreateRepository.save(charactercreate);
-
-        return "redirect:character-view" + charactercreate.getCharacterId();
-    }
-
-///////////////////// Create character GET & Post
+        ////////////// Create character GET & Post
+//        @RequestMapping(value = "character/create", method = RequestMethod.GET)
+//        public String create (Model model){
+//            model.addAttribute("title", "Create Character");
+//            model.addAttribute(new CharacterCreate());
+//            return "character/create";
+//        }
 //
-    @RequestMapping(value = "character/mainview/${characterId}", method = RequestMethod.GET)
-    public String viewCharacter(Model model, @PathVariable Integer characterId) {
-        CharacterCreate characterCreate = characterCreateRepository.findById(characterId).get();
-        model.addAttribute("title", characterCreate.getName());
-        model.addAttribute("class", characterCreate.getCharacterClass());
-        model.addAttribute("race", characterCreate.getRace());
-        model.addAttribute("spells", characterCreate.getSpells());
-       // model.addAttribute("skills", characterCreate.getSkills());
-        model.addAttribute("traits", characterCreate.getTraits());
-        model.addAttribute("proficiencies", characterCreate.getProficiencies());
-        model.addAttribute("equipment", characterCreate.getEquipment());
+//        @RequestMapping(value = "character/create", method = RequestMethod.POST)
+//        public String create (Model model, @ModelAttribute @Valid CharacterCreate charactercreate, Errors errors){
+//            if (errors.hasErrors()) {
+//                model.addAttribute("title", "Create Character");
+//                return "character/create";
+//            }
+//            characterCreateRepository.save(charactercreate);
+//
+//            return "redirect:character-view" + charactercreate.getCharacterId();
+//        }
 
-        return "character/mainview";
-    }
+        ///////////////////// Create character GET & Post
+//
+//        @RequestMapping(value = "character/mainview/{characterId}", method = RequestMethod.GET)
+//        public String viewCharacter (Model model, @PathVariable Integer characterId){
+//            CharacterCreate characterCreate = characterCreateRepository.findById(characterId).get();
+//            model.addAttribute("title", characterCreate.getName());
+//            model.addAttribute("class", characterCreate.getCharacterClass());
+//            model.addAttribute("race", characterCreate.getRace());
+//            model.addAttribute("spells", characterCreate.getSpells());
+//            // model.addAttribute("skills", characterCreate.getSkills());
+//            model.addAttribute("traits", characterCreate.getTraits());
+//            model.addAttribute("proficiencies", characterCreate.getProficiencies());
+//            model.addAttribute("equipment", characterCreate.getEquipment());
+//
+//            return "character/mainview";
+//        }
 
-    ////////////////// \|/ ADD SOMETHING GET \|/  //////////////////
+    /*////////////////// \|/ ADD SOMETHING GET \|/  //////////////////
 
-    @RequestMapping(value = "add-class/${characterId}", method = RequestMethod.GET)
+    @RequestMapping(value = "add-class/{characterId}", method = RequestMethod.GET)
     public String addCharclass(Model model, @PathVariable String characterId) {
         CharacterCreate characterCreate = characterCreateRepository.findById(Integer.parseInt(characterId)).get();
         AddCharacterClassForm form = new AddCharacterClassForm(
@@ -91,7 +171,7 @@ public class CharacterCreateController {
         return "character/add-class";
     }
 
-    @RequestMapping(value = "add-equipment/${characterId}", method = RequestMethod.GET)
+    @RequestMapping(value = "add-equipment/{characterId}", method = RequestMethod.GET)
     public String addEquipment(Model model, @PathVariable String characterId) {
         CharacterCreate characterCreate = characterCreateRepository.findById(Integer.parseInt(characterId)).get();
         AddCharacterEquipForm form = new AddCharacterEquipForm(
@@ -102,7 +182,7 @@ public class CharacterCreateController {
     }
 
    // /${characterId}
-    @RequestMapping(value = "add-proficiency/${characterId}", method = RequestMethod.GET)
+    @RequestMapping(value = "add-proficiency/{characterId}", method = RequestMethod.GET)
     public String addProficiency(Model model, @PathVariable Integer characterId) {
         CharacterCreate characterCreate = characterCreateRepository.findById(characterId).get();
         AddCharacterProfForm form = new AddCharacterProfForm(
@@ -112,7 +192,7 @@ public class CharacterCreateController {
         return "character/add-proficiency";
     }
 
-    @RequestMapping(value = "add-race/${characterId}", method = RequestMethod.GET)
+    @RequestMapping(value = "add-race/{characterId}", method = RequestMethod.GET)
     public String addRace(Model model, @PathVariable Integer characterId) {
         CharacterCreate characterCreate = characterCreateRepository.findById(characterId).get();
         AddCharacterRaceForm form = new AddCharacterRaceForm(
@@ -122,7 +202,7 @@ public class CharacterCreateController {
         return "character/add-race";
     }
 
-    @RequestMapping(value = "add-spell/${characterId}", method = RequestMethod.GET)
+    @RequestMapping(value = "add-spell/{characterId}", method = RequestMethod.GET)
     public String addSpell(Model model, @PathVariable Integer characterId) {
         CharacterCreate characterCreate = characterCreateRepository.findById(characterId).get();
         AddCharacterSpellForm form = new AddCharacterSpellForm(
@@ -132,7 +212,7 @@ public class CharacterCreateController {
         return "character/add-spell";
     }
 
-    @RequestMapping(value = "add-trait/${characterId}", method = RequestMethod.GET)
+    @RequestMapping(value = "add-trait/{characterId}", method = RequestMethod.GET)
     public String addTrait(Model model, @PathVariable Integer characterId) {
         CharacterCreate characterCreate = characterCreateRepository.findById(characterId).get();
         AddCharacterTraitForm form = new AddCharacterTraitForm(
@@ -146,28 +226,26 @@ public class CharacterCreateController {
 
     ////////////////// \|/ ADD SOMETHING POST \|/  //////////////////
 
-    @RequestMapping(value = "add-class", method = RequestMethod.POST)
-    public String addClass(Model model, @ModelAttribute @Valid AddCharacterClassForm form,
-                           Errors errors) {
-        if (errors.hasErrors()) {
-            model.addAttribute("form", form);
-            return "character/add-class";
-        }
+    @RequestMapping(value = "add-class", method = RequestMethod.GET)
+    public String addClass(Model model *//*@ModelAttribute @Valid AddCharacterClassForm form,
+                           Errors errors*//*) {
 
-        Characterclass charclass = characterclassRepository.findById(form.getClassId()).get();
+
+         *//*Characterclass charclass = characterclassRepository.findById(form.getClassId()).get();
         CharacterCreate character = characterCreateRepository.findById(form.getCharacterId()).get();
-        character.addClass(charclass);
-        characterCreateRepository.save(character);
-        return "redirect:character/mainview" + character.getCharacterId();
+        character.addClass(charclass);*//*
+        // characterCreateRepository.save(character);
+        return "character/mainview";
 
     }
 
     @RequestMapping(value = "add-race", method = RequestMethod.POST)
-    public String addRace(Model model, @ModelAttribute @Valid AddCharacterRaceForm form, Errors errors) {
-        if (errors.hasErrors()) {
+    public String addRace(Model model
+            , @ModelAttribute @Valid AddCharacterRaceForm form, Errors errors) {
+       *//* if (errors.hasErrors()) {
             model.addAttribute("form", form);
             return "character/add-race";
-        }
+        }*//*
         Race race = raceRepository.findById(form.getRaceId()).get();
         CharacterCreate character = characterCreateRepository.findById(form.getCharacterId()).get();
         character.addRace(race);
@@ -235,7 +313,7 @@ public class CharacterCreateController {
 
     /////////////////// /|\ ADD SOMETHING POST /|\  ////////////////////
 
-
+*/
 
 
 
@@ -325,4 +403,4 @@ public class CharacterCreateController {
         bookDao.delete(bookDao.findById(id));
         return "redirect:/book-form/list";
     }*/
-}
+    }

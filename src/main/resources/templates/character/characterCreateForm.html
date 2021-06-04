@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Creator</title>
+</head>
+<body>
+<style type="text/css">
+    /*.container {*/
+    /*    height: 200px;*/
+    /*    position: relative;*/
+    /*    border: 3px solid green;*/
+    /*}*/
+
+    /*.center {*/
+    /*    margin: 0;*/
+    /*    position: absolute;*/
+    /*    top: 50%;*/
+    /*    left: 50%;*/
+    /*    -ms-transform: translate(-50%, -50%);*/
+    /*    transform: translate(-50%, -50%);*/
+    /*}*/
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .tg td {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg th {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg .tg-84g4 {
+        font-size: 24px;
+        text-align: left;
+        vertical-align: top
+    }
+
+    .tg .tg-0lax {
+        text-align: left;
+        vertical-align: top
+    }
+
+    .tg .tg-nx8p {
+        font-size: 18px;
+        text-align: left;
+        vertical-align: top
+    }
+
+    .tg .tg-0pky {
+        border-color: inherit;
+        text-align: left;
+        vertical-align: top
+    }
+</style>
+<div th:align="center">
+    <div th:if="${characterCreate.characterId==null}"><h1>Create new Character</h1></div>
+    <div th:unless="${characterCreate.characterId==null}"><h1>Edit Character</h1></div>
+    <br/>
+    <div th:align="center">
+    <form action="#" th:action="@{/character/save}" th:object="${characterCreate}" method="post">
+        <input type="hidden" th:field="*{characterId}"/> <!--th:value="${characterCreate.characterId}"-->
+
+        <table th:align="center" class="tg">
+            <thead>
+            <tr>
+                <th class="tg-84g4" colspan="2">
+                    <div>
+                        <div>Name</div>
+                        <div>
+                            <input type="text" th:field="*{name}">
+                        </div>
+                    </div>
+                </th>
+                <th class="tg-0lax" colspan="2">
+                    <div>
+                        <h3>Class</h3>
+                        <div>
+                            <th:block th:each="characterClass : ${listClass}">
+                                <div>
+                                    <input type="checkbox"
+                                           th:field="*{characterClass}"
+                                           th:text="${characterClass.name}"
+                                           th:value="${characterClass.classId}"
+                                           multiple="multiple" />
+                                </div>
+                                <!--<div><label>
+                                    <select th:field="*{characterClass}" class="form-control" >
+                                        <th:block th:each="characterClass : ${listClass}">
+                                            <option th:text="${characterClass.name}" th:value="${characterClass.classId}"></option>
+                                        </th:block>
+
+                                    </select>
+                                </label></div>-->
+                            </th:block>
+                        </div>
+                    </div>
+                </th>
+                <th class="tg-0lax"><span style="font-weight:400;font-style:normal">
+                <div>
+                    <h3>Race</h3>
+                    <div><label>
+                        <select th:field="*{race}" class="form-control" >
+                            <th:block th:each="race : ${listRace}">
+                                <option th:text="${race.name}" th:value="${race.raceId}"></option>
+                            </th:block>
+
+                        </select>
+                    </label></div>
+                </div>
+                    </span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tg-nx8p">
+                    <div>
+                        <div>Strength</div>
+                        <div>
+                            <input type="number" th:field="*{strScore}">
+                        </div>
+                    </div>
+                </td>
+                <td class="tg-0lax" rowspan="6">
+                    <div>
+                        <h3>Equipment</h3>
+                        <th:block th:each="equip : ${listEquip}">
+                            <div>
+                                <input type="checkbox"
+                                       th:field="*{equipment}"
+                                       th:text="${equip.name}"
+                                       th:value="${equip.equId}"
+                                       multiple="multiple"/>
+                            </div>
+                        </th:block>
+                    </div>
+                </td>
+                <td class="tg-0lax" rowspan="6">
+                    <div>
+                        <h3>Proficiency</h3>
+                        <th:block th:each="prof : ${listProf}">
+                            <div>
+                                <input type="checkbox"
+                                       th:field="*{proficiencies}"
+                                       th:text="${prof.name}"
+                                       th:value="${prof.profId}"
+                                       multiple="multiple"/>
+                            </div>
+                        </th:block>
+                    </div>
+                </td>
+                <td class="tg-0pky" rowspan="6">
+                    <div>
+                        <h3>Trait</h3>
+                        <th:block th:each="trait : ${listTrait}">
+                            <div>
+                                <input type="checkbox"
+                                       th:field="*{traits}"
+                                       th:text="${trait.name}"
+                                       th:value="${trait.traitId}"
+                                       multiple="multiple"/>
+                            </div>
+                        </th:block>
+                    </div>
+                </td>
+                <td class="tg-0lax" rowspan="6">
+                    <div>
+                        <h3>Spells</h3>
+                        <th:block th:each="spell : ${listSpell}">
+                            <div>
+                                <input type="checkbox"
+                                       th:field="*{spells}"
+                                       th:text="${spell.name}"
+                                       th:value="${spell.spellId}"
+                                       multiple="multiple"/>
+                            </div>
+                        </th:block>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tg-nx8p">
+                    <div>
+                        <div>Dexterity</div>
+                        <div>
+                            <input type="number" th:field="*{dexScore}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tg-nx8p">
+                    <div>
+                        <div>Constitution</div>
+                        <div>
+                            <input type="number" th:field="*{constScore}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tg-nx8p">
+                    <div>
+                        <div>Intelligence</div>
+                        <div>
+                            <input type="number" th:field="*{intScore}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tg-nx8p">
+                    <div>
+                        <div>Wisdom</div>
+                        <div>
+                            <input type="number" th:field="*{wisScore}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tg-nx8p">
+                    <div>
+                        <div>Charisma</div>
+                        <div>
+                            <input type="number" th:field="*{charScore}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            <button type="submit" style="height:50px;width:200px">Save</button>
+<!--                <div class="center">-->
+
+<!--                </div>-->
+
+        </table>
+    </form>
+    </div>
+</div>
+</body>
+</html>
