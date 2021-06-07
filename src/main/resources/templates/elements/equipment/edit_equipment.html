@@ -8,7 +8,7 @@
 <div th:align="center">
     <h1>Edit Equipment</h1>
     <br/>
-    <form action="#" th:action="@{/saveEquip}" th:object="${equipment}" method="post">
+    <form action="#" th:action="@{/saveEquip}" th:object="${equipmentSave}" method="post">
         <table>
             <tr>
                 <td>Id</td>
@@ -23,6 +23,12 @@
                 </label></td>
             </tr>
             <tr>
+                <td>Description</td>
+                <td><label>
+                    <input type="text" th:field="*{description}">
+                </label></td>
+            </tr>
+            <tr>
                 <td>Weapon Category</td>
                 <td><label>
                     <input type="text" th:field="*{weaponcategory}">
@@ -31,7 +37,7 @@
             <tr>
                 <td>Weapon Range</td>
                 <td><label>
-                    <input type="text" th:field="*{weaponrange}">
+                    <input type="number" th:field="*{weaponrange}">
                 </label></td>
             </tr>
             <tr>

@@ -13,31 +13,44 @@
             <tr>
                 <td>Name</td>
                 <td><label>
-                    <input type="text" th:field="*{name}">
+                    <div><input type="text" th:field="*{name}"></div>
+                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="item fieldinvalid">Name Errors</div>
+                </label></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><label>
+                    <input type="text" th:field="*{description}">
                 </label></td>
             </tr>
             <tr>
                 <td>Weapon Category</td>
                 <td><label>
-                    <input type="number" th:field="*{weaponcategory}">
+                    <div><input type="text" th:field="*{weaponcategory}"></div>
+                    <div th:if="${#fields.hasErrors('weaponcategory')}" th:errors="*{weaponcategory}" class="item fieldinvalid">Name Errors</div>
                 </label></td>
             </tr>
             <tr>
                 <td>Weapon Range</td>
                 <td><label>
-                    <input type="number" th:field="*{weaponrange}">
+                    <div> <input type="number" th:field="*{weaponrange}"></div>
+                    <div th:if="${#fields.hasErrors('weaponrange')}" th:errors="*{weaponrange}" class="item fieldinvalid">Name Errors</div>
+
                 </label></td>
             </tr>
             <tr>
                 <td>Damage</td>
                 <td><label>
-                    <input type="number" th:field="*{damage}">
+                    <div> <input type="number" th:field="*{damage}"></div>
+                    <div th:if="${#fields.hasErrors('damage')}" th:errors="*{damage}" class="item fieldinvalid">Name Errors</div>
+
                 </label></td>
             </tr>
             <tr>
                 <td>Weight</td>
                 <td><label>
-                    <input type="number" th:field="*{weight}">
+                    <div><input type="number" th:field="*{weight}"></div>
+                    <div th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" class="item fieldinvalid">Name Errors</div>
                 </label></td>
             </tr>
             <tr>

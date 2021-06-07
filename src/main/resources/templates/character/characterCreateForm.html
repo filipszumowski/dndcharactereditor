@@ -76,33 +76,244 @@
     <div th:unless="${characterCreate.characterId==null}"><h1>Edit Character</h1></div>
     <br/>
     <div th:align="center">
-    <form action="#" th:action="@{/character/save}" th:object="${characterCreate}" method="post">
-        <input type="hidden" th:field="*{characterId}"/> <!--th:value="${characterCreate.characterId}"-->
+        <p><a th:href="@{/}" th:align="center">Back to Main Menu</a></p>
+        <form action="#" th:action="@{/character/save}" th:object="${characterCreate}" method="post">
+            <input type="hidden" th:field="*{characterId}"/> <!--th:value="${characterCreate.characterId}"-->
 
-        <table th:align="center" class="tg">
-            <thead>
-            <tr>
-                <th class="tg-84g4" colspan="2">
-                    <div>
-                        <div>Name</div>
+            <table th:align="center" class="tg">
+                <thead>
+                <tr>
+                    <th class="tg-84g4" colspan="2">
                         <div>
-                            <input type="text" th:field="*{name}">
+                            <div>Name</div>
+                            <div>
+                                <input type="text" th:field="*{name}">
+                            </div>
+                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="item fieldinvalid">Name Errors</div>
+
+                        </div>
+                    </th>
+                    <th class="tg-0lax" colspan="2">
+                        <div>
+                            <h3>Class</h3>
+                            <div>
+                                <th:block th:each="characterClass : ${listClass}">
+                                    <div>
+                                        <input type="checkbox"
+                                               th:field="*{characterClass}"
+                                               th:text="${characterClass.name}"
+                                               th:value="${characterClass.classId}"
+                                               multiple="multiple"/>
+                                    </div>
+
+
+                                </th:block>
+                            </div>
+                        </div>
+                    </th>
+                    <th class="tg-0lax"><span style="font-weight:400;font-style:normal">
+                <div>
+                    <h3>Race</h3>
+
+
+                    <div>
+                        <div>
+                            <select th:field="*{race}" class="form-control">
+                            <th:block th:each="race : ${listRace}">
+                                <div th:unless="${race.raceId==null}">
+                                <option th:text="${race.name}" th:value="${race.raceId}"></option>
+                                </div>
+                                <div th:if="${race.raceId==null}">
+                                    <h1>Create new Race</h1></div>
+                            </th:block>
+
+                            </select>
                         </div>
                     </div>
-                </th>
-                <th class="tg-0lax" colspan="2">
-                    <div>
-                        <h3>Class</h3>
+                </div>
+                    </span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="tg-nx8p">
                         <div>
-                            <th:block th:each="characterClass : ${listClass}">
+                            <div>Strength</div>
+                            <div>
+                                <input type="number" th:field="*{strScore}" th:value="10">
+                            </div>
+                            <div th:if="${#fields.hasErrors('strScore')}" th:errors="*{strScore}" class="item fieldinvalid">Name Errors</div>
+
+                        </div>
+                    </td>
+
+
+                    <!-- <div>
+                         <select th:field="*{race}" class="form-control">
+                             <th:block th:each="race : ${listRace}">
+                                 <div th:unless="${race.raceId==null}">
+                                     <option th:text="${race.name}" th:value="${race.raceId}"></option>
+                                 </div>
+                                 <div th:if="${race.raceId==null}">
+                                     <h1>Create new Race</h1></div>
+                             </th:block>
+
+                         </select>
+                     </div>-->
+
+
+                    <td class="tg-0lax" rowspan="6">
+                        <div>
+                            <h3>Equipment</h3>
+                            <th:block th:each="equip : ${listEquip}">
                                 <div>
                                     <input type="checkbox"
-                                           th:field="*{characterClass}"
-                                           th:text="${characterClass.name}"
-                                           th:value="${characterClass.classId}"
-                                           multiple="multiple" />
+                                           th:field="*{equipment}"
+                                           th:text="${equip.name}"
+                                           th:value="${equip.equId}"
+                                           multiple="multiple"/>
                                 </div>
-                                <!--<div><label>
+                            </th:block>
+
+                            <div> <!--th:each="equipT : ${listEquip}">-->
+                                <div> <!--th:if="${equipT.equId==null}">-->
+                                    <p><a th:href="@{/elements/equipment/new_equipment}">Create new Equipment</a></p></div>
+                            </div>
+
+                        </div>
+                    </td>
+                    <td class="tg-0lax" rowspan="6">
+                        <div>
+                            <h3>Proficiency</h3>
+                            <th:block th:each="prof : ${listProf}">
+                                <div>
+                                    <input type="checkbox"
+                                           th:field="*{proficiencies}"
+                                           th:text="${prof.name}"
+                                           th:value="${prof.profId}"
+                                           multiple="multiple"/>
+                                </div>
+                            </th:block>
+
+                            <div> <!--th:each="profT : ${listProf}"-->
+                                <div> <!--th:if="${profT.profId==null}">-->
+                                    <p><a th:href="@{/elements/proficiency/new_prof}">Create new Proficiency</a></p></div>
+                            </div>
+
+
+                        </div>
+                    </td>
+                    <td class="tg-0pky" rowspan="6">
+                        <div>
+                            <h3>Trait</h3>
+                            <th:block th:each="trait : ${listTrait}">
+                                <div>
+                                    <input type="checkbox"
+                                           th:field="*{traits}"
+                                           th:text="${trait.name}"
+                                           th:value="${trait.traitId}"
+                                           multiple="multiple"/>
+                                </div>
+                            </th:block>
+                            <div> <!--th:each="traitT : ${listTrait}"-->
+                                <div> <!--th:if="${listTrait==null}">-->
+                                    <p><a th:href="@{/elements/trait/new_trait}">Create new Trait</a></p></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tg-0lax" rowspan="6">
+                        <div>
+                            <h3>Spells</h3>
+                            <th:block th:each="spell : ${listSpell}">
+                                <div>
+                                    <input type="checkbox"
+                                           th:field="*{spells}"
+                                           th:text="${spell.name}"
+                                           th:value="${spell.spellId}"
+                                           multiple="multiple"/>
+                                </div>
+                            </th:block>
+                            <div> <!--th:each="spellT : ${listSpell}">-->
+                                <div> <!--th:if="${profT.profId==null}">-->
+                                    <p><a th:href="@{/elements/spell/new_spell}">Create new Spell</a></p></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-nx8p">
+                        <div>
+                            <div>Dexterity</div>
+                            <div>
+                                <input type="number" th:field="*{dexScore}">
+                            </div>
+                            <div th:if="${#fields.hasErrors('dexScore')}" th:errors="*{dexScore}" class="item fieldinvalid">Name Errors</div>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-nx8p">
+                        <div>
+                            <div>Constitution</div>
+                            <div>
+                                <input type="number" th:field="*{constScore}">
+                            </div>
+                            <div th:if="${#fields.hasErrors('constScore')}" th:errors="*{constScore}" class="item fieldinvalid">Name Errors</div>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-nx8p">
+                        <div>
+                            <div>Intelligence</div>
+                            <div>
+                                <input type="number" th:field="*{intScore}">
+                            </div>
+                            <div th:if="${#fields.hasErrors('intScore')}" th:errors="*{intScore}" class="item fieldinvalid">Name Errors</div>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-nx8p">
+                        <div>
+                            <div>Wisdom</div>
+                            <div>
+                                <input type="number" th:field="*{wisScore}">
+                            </div>
+                            <div th:if="${#fields.hasErrors('wisScore')}" th:errors="*{wisScore}" class="item fieldinvalid">Name Errors</div>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-nx8p">
+                        <div>
+                            <div>Charisma</div>
+                            <div>
+                                <input type="number" th:field="*{charScore}">
+                            </div>
+                            <div th:if="${#fields.hasErrors('charScore')}" th:errors="*{charScore}" class="item fieldinvalid">Name Errors</div>
+
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <button type="submit" style="height:50px;width:200px">Save</button>
+                <!--                <div class="center">-->
+
+                <!--                </div>-->
+
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+<!--<div><label>
                                     <select th:field="*{characterClass}" class="form-control" >
                                         <th:block th:each="characterClass : ${listClass}">
                                             <option th:text="${characterClass.name}" th:value="${characterClass.classId}"></option>
@@ -110,151 +321,3 @@
 
                                     </select>
                                 </label></div>-->
-                            </th:block>
-                        </div>
-                    </div>
-                </th>
-                <th class="tg-0lax"><span style="font-weight:400;font-style:normal">
-                <div>
-                    <h3>Race</h3>
-                    <div><label>
-                        <select th:field="*{race}" class="form-control" >
-                            <th:block th:each="race : ${listRace}">
-                                <option th:text="${race.name}" th:value="${race.raceId}"></option>
-                            </th:block>
-
-                        </select>
-                    </label></div>
-                </div>
-                    </span></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="tg-nx8p">
-                    <div>
-                        <div>Strength</div>
-                        <div>
-                            <input type="number" th:field="*{strScore}">
-                        </div>
-                    </div>
-                </td>
-                <td class="tg-0lax" rowspan="6">
-                    <div>
-                        <h3>Equipment</h3>
-                        <th:block th:each="equip : ${listEquip}">
-                            <div>
-                                <input type="checkbox"
-                                       th:field="*{equipment}"
-                                       th:text="${equip.name}"
-                                       th:value="${equip.equId}"
-                                       multiple="multiple"/>
-                            </div>
-                        </th:block>
-                    </div>
-                </td>
-                <td class="tg-0lax" rowspan="6">
-                    <div>
-                        <h3>Proficiency</h3>
-                        <th:block th:each="prof : ${listProf}">
-                            <div>
-                                <input type="checkbox"
-                                       th:field="*{proficiencies}"
-                                       th:text="${prof.name}"
-                                       th:value="${prof.profId}"
-                                       multiple="multiple"/>
-                            </div>
-                        </th:block>
-                    </div>
-                </td>
-                <td class="tg-0pky" rowspan="6">
-                    <div>
-                        <h3>Trait</h3>
-                        <th:block th:each="trait : ${listTrait}">
-                            <div>
-                                <input type="checkbox"
-                                       th:field="*{traits}"
-                                       th:text="${trait.name}"
-                                       th:value="${trait.traitId}"
-                                       multiple="multiple"/>
-                            </div>
-                        </th:block>
-                    </div>
-                </td>
-                <td class="tg-0lax" rowspan="6">
-                    <div>
-                        <h3>Spells</h3>
-                        <th:block th:each="spell : ${listSpell}">
-                            <div>
-                                <input type="checkbox"
-                                       th:field="*{spells}"
-                                       th:text="${spell.name}"
-                                       th:value="${spell.spellId}"
-                                       multiple="multiple"/>
-                            </div>
-                        </th:block>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="tg-nx8p">
-                    <div>
-                        <div>Dexterity</div>
-                        <div>
-                            <input type="number" th:field="*{dexScore}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="tg-nx8p">
-                    <div>
-                        <div>Constitution</div>
-                        <div>
-                            <input type="number" th:field="*{constScore}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="tg-nx8p">
-                    <div>
-                        <div>Intelligence</div>
-                        <div>
-                            <input type="number" th:field="*{intScore}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="tg-nx8p">
-                    <div>
-                        <div>Wisdom</div>
-                        <div>
-                            <input type="number" th:field="*{wisScore}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="tg-nx8p">
-                    <div>
-                        <div>Charisma</div>
-                        <div>
-                            <input type="number" th:field="*{charScore}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-            <button type="submit" style="height:50px;width:200px">Save</button>
-<!--                <div class="center">-->
-
-<!--                </div>-->
-
-        </table>
-    </form>
-    </div>
-</div>
-</body>
-</html>

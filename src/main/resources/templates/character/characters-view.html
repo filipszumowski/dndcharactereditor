@@ -22,6 +22,10 @@
         <th>Charisma</th>
         <th>Race</th>
         <th>Character Class</th>
+        <th>Equipment</th>
+        <th>Spells</th>
+        <th>Proficiencies</th>
+        <th>Traits</th>
     </tr>
     </thead>
     <tbody>
@@ -34,8 +38,12 @@
         <td th:text="${char.intScore}"></td>
         <td th:text="${char.wisScore}"></td>
         <td th:text="${char.charScore}"></td>
-        <td th:text="${char.race.name}"></td>
+        <td th:text="${char?.race?.name}"></td>
         <td th:text="${char.characterClass}"></td>
+        <td th:text="${char.equipment}"></td>
+        <td th:text="${char.spells}"></td>
+        <td th:text="${char.proficiencies}"></td>
+        <td th:text="${char.traits}"></td>
         <td><a th:href="@{'/character/edit/'+ ${char.characterId}}">Edit</a>
             &nbsp;
             <a th:href="@{'/character/delete/'+ ${char.characterId}}">Delete</a>

@@ -2,8 +2,12 @@ package com.filipszumowski.dnd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -17,8 +21,12 @@ public class Characterclass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer classId;
     private String indexName;
+    @Size(min = 4, max = 30)
     private String name;
+    @Min(6)
+    @Max(12)
     private Integer hitDie;
+    @URL
     private String url;
     @ManyToMany(mappedBy = "characterClass")
     private List<CharacterCreate> charactercreates;
